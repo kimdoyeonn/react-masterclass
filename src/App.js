@@ -4,7 +4,9 @@ import { keyframes } from 'styled-components';
 function App() {
   return (
     <Wrapper>
-      <Box />
+      <Box>
+        <span>😊</span>
+      </Box>
     </Wrapper>
   );
 }
@@ -34,4 +36,18 @@ const Box = styled.div`
   width: 200px;
   background-color: tomato;
   animation: ${rotationAnimation} 1s linear infinite;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  span {
+    font-size: 30px;
+    &:hover {
+      font-size: 40px;
+    }
+    &:active {
+      opacity: 0;
+    }
+  }
 `;
