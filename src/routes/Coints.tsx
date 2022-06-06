@@ -53,7 +53,7 @@ function Coins() {
 
       setCoins(json.slice(0, 100));
       setLoading(false);
-    })()
+    })();
   }, []);
   return (
     <Container>
@@ -61,11 +61,25 @@ function Coins() {
         <Title>코인</Title>
       </Header>
       <CoinsList>
-        {loading ? "loading..." : coins.map(coin => <Coin key={coin.id}>
-          <Link to={`/${coin.id}`}>
-            {coin.name} &rarr;        
-          </Link>
-        </Coin>)}
+        {loading
+          ? "loading..."
+          : coins.map((coin) => (
+              <Coin key={coin.id}>
+                <Link
+                  to={{
+                    pathname: `/${coin.id}`,
+                  }}
+                  state={{
+                    name: coin.name,
+                  }}
+                >
+                  <Img
+                    src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
+                  />
+                  {coin.name} &rarr;
+                </Link>
+              </Coin>
+            ))}
       </CoinsList>
     </Container>
   );
@@ -89,21 +103,31 @@ const Header = styled.header`
   align-items: center;
 `;
 
-const CoinsList = styled.ul``;
+const CoinsList = styled.ul`
+  max-width: 400px;
+  margin: 0px auto;
+`;
 
 const Coin = styled.li`
   background-color: white;
-  color: ${props => props.theme.bgColor};
+  color: ${(props) => props.theme.bgColor};
   border-radius: 15px;
   margin-bottom: 10px;
   a {
     padding: 20px;
-    transition: color .5s ease-in;
-    display: block;
+    transition: color 0.5s ease-in;
+    display: flex;
+    align-items: center;
   }
   &:hover {
     a {
-      color: ${props => props.theme.accentColor};
+      color: ${(props) => props.theme.accentColor};
     }
   }
+`;
+
+const Img = styled.img`
+  width: 45px;
+  height: 45px;
+  margin-right: 10px;
 `;
