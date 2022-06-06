@@ -87,16 +87,16 @@ function Coins() {
 
 export default Coins;
 
-const Title = styled.h1`
+export const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
   font-size: 48px;
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   padding: 0px 20px;
 `;
 
-const Header = styled.header`
+export const Header = styled.header`
   height: 10vh;
   display: flex;
   justify-content: center;
