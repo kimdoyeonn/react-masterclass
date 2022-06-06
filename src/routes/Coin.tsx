@@ -1,7 +1,5 @@
-import { type } from "os";
-import { Component, useState } from "react";
+import { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import styled from "styled-components";
 import { Container, Header, Title } from "./Coints";
 
 interface RouteParams {
@@ -27,7 +25,6 @@ function Coin() {
       {loading ? "loading..." : null}
     </Container>
   );
-  // <>{loading ? <h1>Coin: {coinId}</h1> : <h1>{state.name}</h1>}</>;
 }
 
 export default Coin;
