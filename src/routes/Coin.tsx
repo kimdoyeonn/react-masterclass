@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, Route, Routes, useLocation, useMatch, useParams } from 'react-router-dom';
-import { Container, Header, Title } from './Coints';
+import { Container, Header, Title } from './Coins';
 import styled from 'styled-components';
 import Price from './Price';
 import Chart from './Chart';
