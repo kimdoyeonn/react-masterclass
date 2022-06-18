@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, Route, Routes, useLocation, useMatch, useParams } from 'react-router-dom';
+import { Link, Route, Routes, useLocation, useMatch, useNavigate, useParams } from 'react-router-dom';
 import { Container, Header, Title } from './Coins';
 import styled from 'styled-components';
 import Price from './Price';
@@ -80,6 +80,7 @@ interface PriceInfo {
 
 function Coin() {
   // const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   const { coinId } = useParams();
   const { state } = useLocation() as RouterLocation;
   const priceMatch = useMatch('/:coinId/price')
@@ -98,6 +99,9 @@ function Coin() {
       <Helmet>
         <title>{state?.name ? state.name : isLoading ? 'Loading...' : infoData?.name}</title>
       </Helmet>
+      <Back>
+        <button onClick={() => navigate(-1)}>go back</button>
+      </Back>
       <Header>
         <Title>
           {state?.name ? state.name : isLoading ? 'Loading...' : infoData?.name}
@@ -146,7 +150,7 @@ function Coin() {
           </Tabs>
           <Routes>
             <Route path='chart' element={<Chart coinId={coinId} />} />
-            <Route path='price' element={<Price />} />
+            <Route path='price' element={<Price coinId={coinId} />} />
           </Routes>
         </>
       )}
@@ -204,3 +208,5 @@ const Tab = styled.span<{ isActive: boolean }>`
     display: block;
   }
 `;
+
+const Back = styled.span``;

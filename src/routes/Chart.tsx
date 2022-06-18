@@ -2,11 +2,11 @@ import { useQuery } from 'react-query';
 import { fetchCoinHistory } from './api';
 import ApexChart from 'react-apexcharts';
 
-interface ChartInterface {
+export interface ChartInterface {
   coinId: string | undefined;
 }
 
-interface IHistorical {
+export interface IHistorical {
   time_open: string;
   time_close: string;
   open: number;
