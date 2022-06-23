@@ -31,18 +31,50 @@ import { useForm } from 'react-hook-form';
 // };
 
 const TodoList = () => {
-  const { register, watch } = useForm();
-  console.log(watch());
-
+  const { register, watch, handleSubmit, formState } = useForm();
+  const onValid = (data: any) => {
+    console.log(data);
+  };
+  console.log(formState.errors);
   return (
     <div>
-      <form>
-        <input {...register('email')} type='text' placeholder='email' />
-        <input {...register('firstName')} type='text' placeholder='firstName' />
-        <input {...register('lastName')} type='text' placeholder='lastName' />
-        <input {...register('username')} type='text' placeholder='username' />
-        <input {...register('password')} type='text' placeholder='password' />
-        <input {...register('passwordConfirm')} type='text' placeholder='passwordConfirm' />
+      <form
+        onSubmit={handleSubmit(onValid)}
+        style={{ display: 'flex', flexDirection: 'column' }}
+      >
+        <input
+          {...register('email', { required: 'email is required' })}
+          type='text'
+          placeholder='email'
+        />
+        <input
+          {...register('firstName', { required: true })}
+          type='text'
+          placeholder='firstName'
+        />
+        <input
+          {...register('lastName', { required: true })}
+          type='text'
+          placeholder='lastName'
+        />
+        <input
+          {...register('username', { required: true })}
+          type='text'
+          placeholder='username'
+        />
+        <input
+          {...register('password', { required: 'password is required', minLength: {
+            value: 5,
+            message: 'password is too short',
+          } })}
+          type='text'
+          placeholder='password'
+        />
+        <input
+          {...register('passwordConfirm', { required: true, minLength: 5 })}
+          type='text'
+          placeholder='passwordConfirm'
+        />
         <button>Add</button>
       </form>
     </div>

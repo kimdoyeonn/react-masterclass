@@ -68,6 +68,7 @@ const GlobalStyle = createGlobalStyle`
   `;
 
 function App() {
+  console.log('왜');
   return (
     <>
       <GlobalStyle />
