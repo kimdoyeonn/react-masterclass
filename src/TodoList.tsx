@@ -30,12 +30,34 @@ import { useForm } from 'react-hook-form';
 //   );
 // };
 
+interface IForm {
+  email: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  password: string;
+  passwordConfirm: string;
+}
+
 const TodoList = () => {
-  const { register, watch, handleSubmit, formState } = useForm();
+  const {
+    register,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IForm>({
+    defaultValues: {
+      email: '@naver.com',
+      firstName: '',
+      lastName: '',
+      username: '',
+      password: '',
+      passwordConfirm: '',
+    }
+  });
   const onValid = (data: any) => {
     console.log(data);
   };
-  console.log(formState.errors);
   return (
     <div>
       <form
@@ -43,38 +65,56 @@ const TodoList = () => {
         style={{ display: 'flex', flexDirection: 'column' }}
       >
         <input
-          {...register('email', { required: 'email is required' })}
+          {...register('email', {
+            required: 'email is required',
+            pattern: {
+              value: /^[A-Za-z0-9._%+-]+@naver\.com$/,
+              message: 'only naver.com emails allowed',
+            },
+          })}
           type='text'
           placeholder='email'
         />
+        <span>{errors?.email?.message}</span>
         <input
-          {...register('firstName', { required: true })}
+          {...register('firstName', { required: 'reqired' })}
           type='text'
           placeholder='firstName'
         />
+        <span>{errors?.firstName?.message}</span>
         <input
-          {...register('lastName', { required: true })}
+          {...register('lastName', { required: 'reqired' })}
           type='text'
           placeholder='lastName'
         />
+        <span>{errors?.lastName?.message}</span>
         <input
-          {...register('username', { required: true })}
+          {...register('username', { required: 'reqired' })}
           type='text'
           placeholder='username'
         />
+        <span>{errors?.username?.message}</span>
         <input
-          {...register('password', { required: 'password is required', minLength: {
-            value: 5,
-            message: 'password is too short',
-          } })}
+          {...register('password', {
+            required: 'password is required',
+            minLength: {
+              value: 5,
+              message: 'password is too short',
+            },
+          })}
           type='text'
           placeholder='password'
         />
+        <span>{errors?.password?.message}</span>
         <input
-          {...register('passwordConfirm', { required: true, minLength: 5 })}
+          {...register('passwordConfirm', {
+            required: 'reqired',
+            minLength: 5,
+          })}
           type='text'
           placeholder='passwordConfirm'
         />
+        <span>{errors?.passwordConfirm?.message}</span>
         <button>Add</button>
       </form>
     </div>
