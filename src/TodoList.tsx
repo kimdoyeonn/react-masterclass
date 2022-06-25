@@ -37,6 +37,7 @@ interface IForm {
   username: string;
   password: string;
   passwordConfirm: string;
+  extraError?: string;
 }
 
 const TodoList = () => {
@@ -44,6 +45,7 @@ const TodoList = () => {
     register,
     watch,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<IForm>({
     defaultValues: {
@@ -53,11 +55,26 @@ const TodoList = () => {
       username: '',
       password: '',
       passwordConfirm: '',
-    }
+    },
   });
-  const onValid = (data: any) => {
-    console.log(data);
+  const onValid = (data: IForm) => {
+    console.log('valid', data);
+    if (data.password !== data.passwordConfirm) {
+      setError(
+        'passwordConfirm',
+        {
+          message: 'Password are not the same.',
+        },
+        {
+          shouldFocus: true,
+        }
+      );
+    }
+    setError('extraError', {
+      message: 'Server offline',
+    });
   };
+  console.log(errors);
   return (
     <div>
       <form
@@ -77,7 +94,15 @@ const TodoList = () => {
         />
         <span>{errors?.email?.message}</span>
         <input
-          {...register('firstName', { required: 'reqired' })}
+          {...register('firstName', {
+            required: 'write here',
+            validate: {
+              noNico: (value) =>
+                value.includes('nico') ? 'no nicos allowed' : true,
+              noNick: (value) =>
+                value.includes('nick') ? 'no nick allowed' : true,
+            },
+          })}
           type='text'
           placeholder='firstName'
         />
@@ -116,6 +141,7 @@ const TodoList = () => {
         />
         <span>{errors?.passwordConfirm?.message}</span>
         <button>Add</button>
+        <span>{errors?.extraError?.message}</span>
       </form>
     </div>
   );
