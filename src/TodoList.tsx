@@ -58,9 +58,9 @@ const TodoList = () => {
     },
   });
   const onValid = (data: IForm) => {
-    console.log('valid', data);
+    console.log('valid', data.password, data.passwordConfirm);
     if (data.password !== data.passwordConfirm) {
-      setError(
+      return setError(
         'passwordConfirm',
         {
           message: 'Password are not the same.',
@@ -70,9 +70,9 @@ const TodoList = () => {
         }
       );
     }
-    setError('extraError', {
-      message: 'Server offline',
-    });
+    // return setError('extraError', {
+    //   message: 'Server offline',
+    // });
   };
   console.log(errors);
   return (
