@@ -1,6 +1,5 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { atom, useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { todoState } from './atoms';
 import CreateToDos from './CreateToDos';
 import ToDo from './ToDo';
@@ -15,7 +14,7 @@ const TodoList = () => {
       <CreateToDos />
       <ul>
         {toDos.map((toDo) => (
-          <ToDo {...toDo} />
+          <ToDo {...toDo} key={toDo.id} />
         ))}
       </ul>
     </div>
