@@ -11,8 +11,12 @@ const ToDo = ({ text, category, id }: IToDo) => {
     setToDos((oldTodos) => {
       const targetIndex = oldTodos.findIndex((todo) => todo.id === id);
       const oldToDo = oldTodos[targetIndex];
-      const newToDo = { ...oldToDo, category: name };
-      return oldTodos;
+      const newToDo = { ...oldToDo, category: name as any };
+      return [
+        ...oldTodos.slice(0, targetIndex),
+        newToDo,
+        ...oldTodos.slice(targetIndex + 1),
+      ];
     });
   };
   return (
