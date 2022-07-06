@@ -10,4 +10,8 @@ export const hoursSeletor = selector({
   get: ({ get }) => {
     return get(minutesState) / 60;
   },
+  set: ({ set }, newValue) => {
+    const newMinutes = Number(newValue) * 60;
+    set(minutesState, newMinutes);
+  },
 });
