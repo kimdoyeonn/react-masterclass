@@ -9,12 +9,12 @@ const Card = styled.div`
   background-color: ${(props) => props.theme.cardColor};
 `;
 
-interface IProps {
+interface ICardProps {
   toDo: string;
   index: number;
 }
 
-function DraggableCard({ toDo, index }: IProps) {
+function DraggableCard({ toDo, index }: ICardProps) {
   return (
     <Draggable draggableId={toDo} index={index} key={toDo}>
       {(magic) => (
