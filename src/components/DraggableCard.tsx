@@ -10,13 +10,14 @@ const Card = styled.div<{isDragging: boolean}>`
 `;
 
 interface ICardProps {
-  toDo: string;
+  toDoId: number;
+  toDoText: string;
   index: number;
 }
 
-function DraggableCard({ toDo, index }: ICardProps) {
+function DraggableCard({ toDoId, toDoText, index }: ICardProps) {
   return (
-    <Draggable draggableId={toDo} index={index} key={toDo}>
+    <Draggable draggableId={toDoId + ''} index={index} key={toDoId}>
       {(provide, info) => (
         <Card
           ref={provide.innerRef}
@@ -24,7 +25,7 @@ function DraggableCard({ toDo, index }: ICardProps) {
           {...provide.dragHandleProps}
           {...provide.draggableProps}
         >
-          {toDo}
+          {toDoText}
         </Card>
       )}
     </Draggable>
