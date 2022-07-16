@@ -29,14 +29,16 @@ function App() {
     setToDos((allBoards) => {
       if (destination.droppableId === source.droppableId) {
         const copyToDos = [...allBoards[source.droppableId]];
+        const task = copyToDos[source.index];
         copyToDos.splice(source.index, 1);
-        copyToDos.splice(destination.index, 0, draggableId);
+        copyToDos.splice(destination.index, 0, task);
         return { ...allBoards, [destination.droppableId]: copyToDos };
       } else {
         const copySourceToDos = [...allBoards[source.droppableId]];
+        const task = copySourceToDos[source.index];
         copySourceToDos.splice(source.index, 1);
         const copyDestinationToDos = [...allBoards[destination.droppableId]];
-        copyDestinationToDos.splice(destination.index, 0, draggableId);
+        copyDestinationToDos.splice(destination.index, 0, task);
 
         return {
           ...allBoards,
