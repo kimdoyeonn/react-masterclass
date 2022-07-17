@@ -60,10 +60,12 @@ function DrappableBoard({ toDos, boardId }: IBoardProps) {
       text: toDo,
     };
     setToDos((allBoards) => {
-      return {
+      const newBoards = {
         ...allBoards,
         [boardId]: [...allBoards[boardId], newToDo],
       };
+      localStorage.setItem('boards', JSON.stringify(newBoards));
+      return newBoards;
     });
     setValue('toDo', '');
   };

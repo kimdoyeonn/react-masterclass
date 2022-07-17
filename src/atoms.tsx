@@ -11,9 +11,5 @@ interface IToDoState {
 
 export const toDoState = atom<IToDoState>({
   key: 'toDoState',
-  default: {
-    to_do: [],
-    doing: [],
-    done: [],
-  },
+  default: JSON.parse(localStorage.getItem('boards') ?? '{}'),
 });

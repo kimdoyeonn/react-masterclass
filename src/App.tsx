@@ -12,6 +12,7 @@ const Wrapper = styled.div`
   margin: 0 auto;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   height: 100vh;
 `;
 
@@ -36,12 +37,13 @@ function App() {
     const { source, destination, draggableId } = info;
     if (!destination) return;
     setToDos((allBoards) => {
+      let newBoards = {};
       if (destination.droppableId === source.droppableId) {
         const copyToDos = [...allBoards[source.droppableId]];
         const task = copyToDos[source.index];
         copyToDos.splice(source.index, 1);
         copyToDos.splice(destination.index, 0, task);
-        return { ...allBoards, [destination.droppableId]: copyToDos };
+        newBoards = { ...allBoards, [destination.droppableId]: copyToDos };
       } else {
         const copySourceToDos = [...allBoards[source.droppableId]];
         const task = copySourceToDos[source.index];
@@ -49,22 +51,26 @@ function App() {
         const copyDestinationToDos = [...allBoards[destination.droppableId]];
         copyDestinationToDos.splice(destination.index, 0, task);
 
-        return {
+        newBoards = {
           ...allBoards,
           [source.droppableId]: copySourceToDos,
           [destination.droppableId]: copyDestinationToDos,
         };
       }
+      localStorage.setItem('boards', JSON.stringify(newBoards));
+      return newBoards;
     });
   };
 
-  const onValid = ({ board }: {board: string}) => {
-    setToDos(oldToDos => {
-      return {
+  const onValid = ({ board }: { board: string }) => {
+    setToDos((oldToDos) => {
+      const newToDos = {
         ...oldToDos,
         [board]: [],
-      }
-    })
+      };
+      localStorage.setItem('boards', JSON.stringify(newToDos));
+      return newToDos;
+    });
     setValue('board', '');
   };
 
@@ -75,18 +81,16 @@ function App() {
           {...register('board', { required: true })}
           type='text'
           placeholder='Write board name and enter'
-          />
+        />
       </Form>
       <DragDropContext onDragEnd={onDragEnd}>
         <Wrapper>
           <Boards>
             {Object.keys(toDos).map((key) => (
               <DrappableBoard toDos={toDos[key]} boardId={key} key={key} />
-              ))}
-            <Board>
-              Drag here to delete
-            </Board>
+            ))}
           </Boards>
+          <Board>Drag here to delete</Board>
         </Wrapper>
       </DragDropContext>
     </>
