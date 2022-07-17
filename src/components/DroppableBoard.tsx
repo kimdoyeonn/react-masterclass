@@ -38,7 +38,7 @@ const Area = styled.div<IAreaProps>`
   transition: background-color 0.2s;
 `;
 
-const Form = styled.form`
+export const Form = styled.form`
   width: 100%;
 `;
 

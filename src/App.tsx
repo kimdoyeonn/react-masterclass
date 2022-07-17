@@ -1,8 +1,9 @@
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { toDoState } from './atoms';
-import DrappableBoard from './components/DroppableBoard';
+import DrappableBoard, { Form } from './components/DroppableBoard';
 
 const Wrapper = styled.div`
   display: flex;
@@ -21,7 +22,15 @@ const Boards = styled.div`
   gap: 1rem;
 `;
 
+const Board = styled.div``;
+
+interface IForm {
+  board: string;
+}
+
 function App() {
+  const { register, setValue, handleSubmit } = useForm<IForm>();
+
   const [toDos, setToDos] = useRecoilState(toDoState);
   const onDragEnd = (info: DropResult) => {
     const { source, destination, draggableId } = info;
@@ -48,16 +57,39 @@ function App() {
       }
     });
   };
+
+  const onValid = ({ board }: {board: string}) => {
+    setToDos(oldToDos => {
+      return {
+        ...oldToDos,
+        [board]: [],
+      }
+    })
+    setValue('board', '');
+  };
+
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <Wrapper>
-        <Boards>
-          {Object.keys(toDos).map((key) => (
-            <DrappableBoard toDos={toDos[key]} boardId={key} key={key} />
-          ))}
-        </Boards>
-      </Wrapper>
-    </DragDropContext>
+    <>
+      <Form onSubmit={handleSubmit(onValid)}>
+        <input
+          {...register('board', { required: true })}
+          type='text'
+          placeholder='Write board name and enter'
+          />
+      </Form>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Wrapper>
+          <Boards>
+            {Object.keys(toDos).map((key) => (
+              <DrappableBoard toDos={toDos[key]} boardId={key} key={key} />
+              ))}
+            <Board>
+              Drag here to delete
+            </Board>
+          </Boards>
+        </Wrapper>
+      </DragDropContext>
+    </>
   );
 }
 
