@@ -1,9 +1,13 @@
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { useForm } from 'react-hook-form';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { toDoState } from './atoms';
 import DrappableBoard, { Form } from './components/DroppableBoard';
+
+interface IArea {
+  isDraggingOver: boolean;
+}
 
 const Wrapper = styled.div`
   display: flex;
@@ -23,7 +27,17 @@ const Boards = styled.div`
   gap: 1rem;
 `;
 
-const Board = styled.div``;
+const Area = styled.div<IArea>`
+  height: 2rem;
+  width: 100%;
+  background-color: ${props => props.isDraggingOver ? 'rgba(0, 0, 0, 0.4)' : 'rgba(0, 0, 0, 0.3)'};
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 interface IForm {
   board: string;
@@ -44,6 +58,10 @@ function App() {
         copyToDos.splice(source.index, 1);
         copyToDos.splice(destination.index, 0, task);
         newBoards = { ...allBoards, [destination.droppableId]: copyToDos };
+      } else if (destination.droppableId === 'delete') {
+        const copyToDos = [...allBoards[source.droppableId]];
+        copyToDos.splice(source.index, 1)
+        newBoards = { ...allBoards, [source.droppableId]: copyToDos };
       } else {
         const copySourceToDos = [...allBoards[source.droppableId]];
         const task = copySourceToDos[source.index];
@@ -90,7 +108,16 @@ function App() {
               <DrappableBoard toDos={toDos[key]} boardId={key} key={key} />
             ))}
           </Boards>
-          <Board>Drag here to delete</Board>
+          <Droppable droppableId="delete">
+            {(provider, info) => (
+              <Area {...provider.droppableProps} isDraggingOver={info.isDraggingOver} ref={provider.innerRef}>
+                <div>
+                  Drag here to delete
+                  {provider.placeholder}
+                </div>
+              </Area>
+            )}
+          </Droppable>
         </Wrapper>
       </DragDropContext>
     </>
