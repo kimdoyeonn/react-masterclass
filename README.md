@@ -6,9 +6,9 @@
 
 ### selector 
 
-### framer-motion
+## framer-motion
 애니메이션을 쉽게 구현할 수 있도록 해주는 라이브러리
-
+애니메이션으로 인해 element가 변경되어도 모든 element가 재랜더링되지 않음
 
 ### #7.12 Slider part One
 
