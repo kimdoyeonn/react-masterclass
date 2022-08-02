@@ -22,7 +22,6 @@ const Box = styled(motion.div)`
   height: 500px;
   background-color: rgba(255, 255, 255, 1);
   border-radius: 20px;
-  position: absolute;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -43,14 +42,8 @@ function App() {
   const [click, setClick] = useState(false);
   return (
     <Wrapper onClick={() => setClick(!click)}>
-      <Box
-        style={{
-          justifyContent: click ? 'center' : 'flex-start',
-          alignItems: click ? 'center' : 'flex-start',
-        }}
-      >
-        <Circle layout />
-      </Box>
+      <Box>{!click ? <Circle layoutId="circle" style={{ borderRadius: '50%', scale: 2 }} /> : null}</Box>
+      <Box>{click ? <Circle layoutId="circle" style={{ borderRadius: 0 }} /> : null}</Box>
     </Wrapper>
   );
 }
