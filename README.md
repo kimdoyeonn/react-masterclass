@@ -8,6 +8,8 @@
 ### selector 
 
 ## beautiful-dnd
+칸반보드 클론
+Todo doing done 각각의 보드에 메모를 드래그 앤 드랍으로 상태를 변경하는 기능을 구현함
 
 ## framer-motion
 애니메이션을 쉽게 구현할 수 있도록 해주는 라이브러리
