@@ -10,6 +10,7 @@
 ## beautiful-dnd
 칸반보드 클론
 Todo doing done 각각의 보드에 메모를 드래그 앤 드랍으로 상태를 변경하는 기능을 구현함
+코딩 챌린지는 보드의 순서를 드래그 앤 드랍으로 변경하는 것이었음
 
 ## framer-motion
 애니메이션을 쉽게 구현할 수 있도록 해주는 라이브러리
@@ -114,3 +115,5 @@ custom을 사용하면 객체를 가진 객체인 variants가 함수를 사용�
 
 + 추가로 `AnimationPresence`에 `exitBeforeEnter`를 true로 하면 exit이 완전히 끝난 이후에 다음 애니메이션이 실행되게 할 수 있음
 + 기본은 exit과 다음 등장애니메이션이 동시에 실행되는 것
+
+Id를 이용해서 애니메이션을 연결할 수 있음
