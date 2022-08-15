@@ -1,16 +1,16 @@
 import "styled-components";
 
 declare module "styled-components" {
-  export const theme: DefaultTheme = {
-    red: "#E51013",
+  export interface DefaultTheme {
+    red: string;
     black: {
-      veryDark: "#141414",
-      darker: "#181818",
-      lighter: "#2F2F2F",
-    },
+      veryDark: string;
+      darker: string;
+      lighter: string;
+    };
     white: {
-      lighter: "#fff",
-      darker: "#e5e5e5",
-    },
-  };
+      darker: string;
+      lighter: string;
+    };
+  }
 }
