@@ -119,3 +119,28 @@ custom을 사용하면 객체를 가진 객체인 variants가 함수를 사용�
 Id를 이용해서 애니메이션을 연결할 수 있음
 
 ## #8.1 Header part One
+
+## #8.12 Movie Modal part Two
+
+넷플릭스에서 콘텐츠 상세 페이지에 해당하는 커다란 모달을 만듦
+
+framer-motion으로 커다란 모달 하나를 만들고, 콘텐츠 id를 layoutId로 사용하여 애니메이션이 연결될 수 있도록 했다.
+```js
+  {data?.results
+    .slice(1)
+    .slice(offset * index, offset * index + offset)
+    .map((movie) => (
+      <Box
+        layoutId={movie.id + ''}
+        key={movie.id}
+      >
+      </Box>
+    ))}
+
+    ...
+    <Overlay
+      layoutId={bigMovieMatch.params.movieId}
+    />
+```
+
+Overlay의 초기 디자인은 opacity: 0, Box에 클릭이 발생했을 때 opacity: 1로 서서히 변하는 애니메이션을 줬다.
