@@ -12,5 +12,12 @@ declare module "styled-components" {
       darker: string;
       lighter: string;
     };
+    bgColor: string;
+    accentColor: string;
+    text: {
+      primary: string
+      secondary: string
+    }
+
   }
 }
