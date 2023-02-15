@@ -7,7 +7,8 @@ import Tv from './routes/Tv';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { dark, light } from './theme';
-import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import { isDarkAtom } from './atoms';
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -75,16 +76,9 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
-  const theme = isDarkMode ? dark : light;
-
+  const isDark = useRecoilValue(isDarkAtom);
   return (
-    <ThemeProvider theme={theme}>
-      <CommonContainer>
-        <DarkModeButton onClick={() => setIsDarkMode((prev) => !prev)}>
-          {isDarkMode ? '라이트모드로' : '다크모드로'}
-        </DarkModeButton>
-      </CommonContainer>
+    <ThemeProvider theme={isDark ? light : dark}>
       <GlobalStyle />
       <ReactQueryDevtools initialIsOpen={true} />
       <Router />
