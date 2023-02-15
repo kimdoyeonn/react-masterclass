@@ -9,12 +9,12 @@ function Router() {
   return (
     <BrowserRouter basename={`${process.env.PUBLIC_URL}`}>
       <Routes>
-        {/* <Route path='/' element={<Coins />} />
+        <Route path='/' element={<Coins />} />
         <Route path='/:coinId' element={<Coin />}>
           <Route path={`price`} element={<Price />} />
           <Route path={`chart`} element={<Chart />} />
-        </Route> */}
-        <Route path='/' element={<ToDoList />} />
+        </Route>
+        <Route path='/todo' element={<ToDoList />} />
       </Routes>
     </BrowserRouter>
   );
