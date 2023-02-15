@@ -14,7 +14,7 @@ function Router() {
           <Route path={`price`} element={<Price />} />
           <Route path={`chart`} element={<Chart />} />
         </Route> */}
-        <Route path='/todo' element={<ToDoList />} />
+        <Route path='/' element={<ToDoList />} />
       </Routes>
     </BrowserRouter>
   );
